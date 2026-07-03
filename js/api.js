@@ -4,7 +4,7 @@
  */
 
 // Base URL of the backend API. Change this to your deployed backend URL (e.g. 'https://your-backend.vercel.app')
-const API_BASE_URL = ''; 
+const API_BASE_URL = 'https://backeeeennddddddd.onrender.com/'; 
 
 const API = {
   cache: {
