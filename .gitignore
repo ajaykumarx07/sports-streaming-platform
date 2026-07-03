@@ -1,0 +1,18 @@
+# Backend files and configurations
+api/
+data/
+server.js
+package.json
+package-lock.json
+vercel.json
+
+# Dependencies
+node_modules/
+
+# Environment and IDE files
+.env
+.env.local
+.vscode/
+.idea/
+.gemini/
+*.log

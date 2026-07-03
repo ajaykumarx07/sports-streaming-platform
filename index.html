@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Metadata -->
+  <title>AJSPORTS - Live Sports Streaming Platform</title>
+  <meta name="description" content="Watch high-definition, bufferless live sports streams. Experience premium delayed-free sports events coverage with multiple channels and languages.">
+  <meta name="keywords" content="sports, live streaming, football, cricket, HLS, DASH, DRM, IPL Live">
+  <link rel="icon" type="image/x-icon" href="favicon.ico" onerror="this.href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📺</text></svg>'">
+  
+  <!-- Styling CDNs -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Ambient background poster backdrop -->
+  <div class="body-background-poster" id="body-bg-poster"></div>
+
+  <!-- Sticky Header -->
+  <header id="main-header">
+    <div class="container header-container">
+      <a href="index.html" class="logo" id="header-logo">
+        <i class="fa-solid fa-circle-play"></i> AJSPORTS
+      </a>
+      
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="#cards-grid" class="nav-link">Live Matches</a>
+        <a href="admin.html" class="nav-link" id="nav-admin-link" style="display: none;">Admin Console</a>
+      </nav>
+      
+      <div class="header-actions">
+        <!-- Search bar -->
+        <div class="search-container">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="search-input" class="search-input" placeholder="Search matches, leagues..." aria-label="Search matches">
+        </div>
+        
+        <a href="admin.html" class="admin-btn-header" id="header-admin-btn" style="display: none;">
+          <i class="fa-solid fa-user-gear"></i> Admin
+        </a>
+
+        <!-- User Authentication Widget -->
+        <div class="user-auth-container" id="user-auth-container"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Spotlight Banner -->
+  <section class="hero-section" id="hero-section">
+    <!-- Injected dynamically by js/app.js -->
+  </section>
+
+  <main class="container">
+    <!-- Category Filter Chips -->
+    <section class="filters-section" id="filters-container" aria-label="Filter matches by category">
+      <button class="filter-chip active" data-filter="all">All Events</button>
+      <button class="filter-chip" data-filter="live"><i class="fa-solid fa-circle" style="color: var(--live-color); font-size: 8px; margin-right: 6px;"></i> Live</button>
+      <button class="filter-chip" data-filter="upcoming">Upcoming</button>
+      <button class="filter-chip" data-filter="completed">Completed</button>
+    </section>
+
+    <!-- Matches Grid Section -->
+    <section class="section-wrapper">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="indicator" style="background-color: var(--accent-color);"></span>
+          Featured Streams
+        </h2>
+      </div>
+      
+      <!-- Cards & Skeletons Wrapper -->
+      <div class="grid-layout" id="cards-grid">
+        <!-- Injected dynamically by js/app.js -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container footer-content">
+      <div class="logo">
+        <i class="fa-solid fa-circle-play"></i> AJSPORTS
+      </div>
+      <p class="footer-text">© 2026 AJSPORTS. All rights reserved. Platform built with pure vanilla Web Components.</p>
+      <div class="footer-links">
+        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="admin.html" class="footer-link">Admin Console</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Javascript Modules -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // Header background change on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

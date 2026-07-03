@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - AJSPORTS</title>
+  
+  <!-- CDNs and stylesheets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    .admin-container {
+      margin-top: 100px;
+      margin-bottom: 80px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 30px;
+    }
+    
+    .admin-sidebar {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      padding: 24px;
+      height: fit-content;
+    }
+    
+    .admin-main {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      padding: 32px;
+    }
+    
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .sidebar-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+    }
+    
+    .event-item {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      padding: 12px 16px;
+      border-radius: var(--border-radius-sm);
+      margin-bottom: 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition-smooth);
+    }
+    
+    .event-item:hover, .event-item.active {
+      border-color: var(--accent-color);
+      background: rgba(229, 9, 20, 0.05);
+    }
+    
+    .event-item-name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+    
+    .event-item-status {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+    
+    .form-control {
+      width: 100%;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      border-radius: var(--border-radius-sm);
+      font-size: 14px;
+      color: #fff;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+    
+    .form-control:focus {
+      border-color: var(--accent-color);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .streams-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .stream-block {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-sm);
+      padding: 20px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    
+    .remove-stream-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: var(--live-color);
+      cursor: pointer;
+      font-size: 14px;
+      transition: var(--transition-smooth);
+    }
+    
+    .remove-stream-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .drm-fields {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border-color);
+    }
+    
+    .drm-fields.active {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    
+    .action-buttons-row {
+      margin-top: 30px;
+      display: flex;
+      gap: 16px;
+      justify-content: flex-end;
+    }
+    
+    /* Token auth banner */
+    .auth-banner {
+      background: rgba(229, 9, 20, 0.15);
+      border: 1px solid rgba(229, 9, 20, 0.3);
+      border-radius: var(--border-radius-md);
+      padding: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    @media (max-width: 900px) {
+      .admin-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header>
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <i class="fa-solid fa-circle-play"></i> AJSPORTS
+      </a>
+      <a href="index.html" class="admin-btn-header">
+        <i class="fa-solid fa-chevron-left"></i> Public Hub
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="admin-container">
+      
+      <!-- Left Sidebar: Event Listing -->
+      <aside class="admin-sidebar" aria-label="Event Listing Manager">
+        <div class="sidebar-header">
+          <h2 class="sidebar-title">Manage Matches</h2>
+          <button class="btn btn-secondary" id="new-event-btn" style="padding: 6px 12px; font-size: 12px; border-radius: 4px;">
+            <i class="fa-solid fa-plus"></i> New
+          </button>
+        </div>
+        <div id="events-list-container">
+          <!-- Injected dynamically by js/admin.js -->
+        </div>
+      </aside>
+      
+      <!-- Right Main: Editor Form -->
+      <section class="admin-main" aria-label="Match editor details">
+        
+        <!-- Auth Header Token -->
+        <div class="auth-banner">
+          <i class="fa-solid fa-shield-halved" style="color: var(--accent-color); font-size: 28px;"></i>
+          <div style="flex-grow: 1;">
+            <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 4px; font-family: var(--font-display)">Admin Access Secret Required</h4>
+            <p style="font-size: 12px; color: var(--text-secondary)">Specify the authentication code (default is <code>admin-secret-2026</code>) to write database updates.</p>
+          </div>
+          <div style="width: 220px;">
+            <input type="password" id="auth-token-input" class="form-control" placeholder="Enter Token..." style="padding: 8px 12px;">
+          </div>
+        </div>
+
+        <h2 class="section-title" id="form-action-title" style="margin-bottom: 24px;">Create New Event</h2>
+        
+        <form id="event-editor-form">
+          <!-- Hidden ID input for update references -->
+          <input type="hidden" id="event-db-id">
+
+          <div class="form-group">
+            <label class="form-label" for="event-title">Event/Match Title</label>
+            <input type="text" id="event-title" class="form-control" placeholder="e.g. FIFA World Cup Final: France vs Brazil" required>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="event-id-slug">Event ID Slug (Unique key)</label>
+              <input type="text" id="event-id-slug" class="form-control" placeholder="e.g. fifa-final-2026" required>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="event-status">Event Status</label>
+              <select id="event-status" class="form-control" style="background-color: var(--bg-tertiary);" required>
+                <option value="LIVE">LIVE</option>
+                <option value="UPCOMING">UPCOMING</option>
+                <option value="COMPLETED">COMPLETED</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="event-poster">Poster Image URL</label>
+              <input type="url" id="event-poster" class="form-control" placeholder="https://images.unsplash.com/..." required>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="event-starttime">Start Date/Time</label>
+              <input type="datetime-local" id="event-starttime" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="form-group" id="highlights-group" style="display: none; margin-bottom: 20px;">
+            <label class="form-label" for="event-highlights">Highlights Stream (M3U8 URL)</label>
+            <input type="url" id="event-highlights" class="form-control" placeholder="e.g. https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">
+          </div>
+
+          <!-- Dynamic Stream Channels section -->
+          <div class="streams-title-row">
+            <h3 style="font-family: var(--font-display); font-size: 16px; font-weight: 700;">Streaming Channels</h3>
+            <button type="button" class="btn btn-secondary" id="add-stream-btn" style="padding: 6px 14px; font-size: 12px; border-radius: 4px;">
+              <i class="fa-solid fa-plus"></i> Add Channel
+            </button>
+          </div>
+
+          <!-- Container for stream blocks -->
+          <div id="streams-container">
+            <!-- Dynamically populated by js/admin.js -->
+          </div>
+
+          <!-- Actions -->
+          <div class="action-buttons-row">
+            <button type="button" class="btn btn-secondary" id="delete-event-btn" style="background-color: rgba(255,14,61,0.1); border-color: rgba(255,14,61,0.2); color: var(--live-color); display: none;">
+              <i class="fa-solid fa-trash"></i> Delete Match
+            </button>
+            <button type="submit" class="btn btn-primary" id="save-event-btn">
+              <i class="fa-solid fa-floppy-disk"></i> Save Stream Configuration
+            </button>
+          </div>
+        </form>
+
+      </section>
+    </div>
+  </main>
+
+  <script src="js/ui.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

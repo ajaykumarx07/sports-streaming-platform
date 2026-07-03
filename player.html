@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Watch Live Stream - AJSPORTS</title>
+  
+  <!-- CDNs and stylesheets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shaka-player@5.1.11/dist/controls.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/player.css">
+</head>
+<body class="player-body">
+
+  <!-- Network Interrupted Reconnect Banner -->
+  <div class="reconnect-banner" id="reconnect-banner">
+    <i class="fa-solid fa-arrows-spin"></i>
+    <span>Network connection lost. Attempting auto-reconnect...</span>
+  </div>
+
+  <!-- Player Header and Back navigation -->
+  <div class="player-navigation">
+    <button class="back-btn" id="back-btn" aria-label="Go Back">
+      <i class="fa-solid fa-arrow-left"></i> Back to Home
+    </button>
+  </div>
+
+  <!-- Main Player Viewport -->
+  <div class="player-viewport">
+    <!-- Media Video Tag -->
+    <video id="player-video" playsinline crossorigin="anonymous"></video>
+    
+    <!-- Loading Spinner Screen Overlay -->
+    <div class="player-overlay active" id="loading-overlay">
+      <div class="spinner-container">
+        <div class="custom-spinner"></div>
+        <span class="spinner-text" id="spinner-text">Preparing buffer tunnel...</span>
+      </div>
+    </div>
+    
+    <!-- Error/Failure Recovery Screen Overlay -->
+    <div class="player-overlay" id="error-overlay">
+      <div class="error-screen">
+        <i class="fa-solid fa-circle-exclamation error-icon"></i>
+        <h2 class="error-title">Stream Interrupted</h2>
+        <p class="error-desc" id="error-desc">We are having issues accessing the stream server. Check your network link.</p>
+        <button class="retry-btn" id="retry-btn">
+          <i class="fa-solid fa-arrow-rotate-right"></i> Retry Connection
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stream metadata panel underneath player (only visible in default aspect) -->
+  <div class="stream-info-panel">
+    <div class="stream-info-left">
+      <h1 class="stream-title" id="stream-title">Loading match stream info...</h1>
+      <div class="stream-status-row">
+        <span class="stream-badge" id="stream-badge">LIVE</span>
+        <span class="stream-channel-info" id="stream-channel-info">Primary Channel</span>
+      </div>
+    </div>
+    <div class="stream-info-right">
+      <button class="player-action-btn" id="share-btn">
+        <i class="fa-solid fa-share-nodes"></i> Share Link
+      </button>
+    </div>
+  </div>
+
+  <!-- Telegram Slide-in Pop-up -->
+  <div class="telegram-popup" id="telegram-popup">
+    <div class="telegram-header">
+      <span class="telegram-logo-row"><i class="fa-brands fa-telegram"></i> Telegram Stream Alerts</span>
+      <i class="fa-solid fa-xmark telegram-close-btn" id="telegram-close" aria-label="Close message"></i>
+    </div>
+    <p class="telegram-body-text">Join our community channel to get instant updates on stream server switches, live event listings, and real-time support!</p>
+    <button class="telegram-btn" id="telegram-join">
+      <i class="fa-brands fa-telegram"></i> Join Channel Now
+    </button>
+  </div>
+
+  <!-- Third-party Engine CDNs -->
+  <!-- Shaka Player for DASH + ClearKey DRM (UI version) -->
+  <script src="https://cdn.jsdelivr.net/npm/shaka-player@5.1.11/dist/shaka-player.ui.js"></script>
+  
+  <!-- HLS.js for HLS (.m3u8) on non-native browsers -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  
+  <!-- Plyr UI Controller -->
+  <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+
+  <!-- Application Modules -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/player.js"></script>
+</body>
+</html>
