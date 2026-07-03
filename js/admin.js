@@ -3,6 +3,9 @@
  * Manages token state, sidebar listings, editor loading, dynamic additions, and CRUD requests.
  */
 
+// Base URL of the backend API. Change this to your deployed backend URL (e.g. 'https://your-backend.vercel.app')
+const API_BASE_URL = '';
+
 // Strict Owner Authentication Redirection Guard
 if (localStorage.getItem('user_email') !== 'gwajay73@gmail.com') {
   window.location.replace('index.html');
@@ -61,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     try {
-      const response = await fetch('/api/admin', {
+      const response = await fetch(`${API_BASE_URL}/api/admin`, {
         headers: {
           'x-admin-token': token
         }
@@ -353,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       UI.showToast('Saving details...', 'info');
-      const response = await fetch('/api/admin', {
+      const response = await fetch(`${API_BASE_URL}/api/admin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -389,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       UI.showToast('Deleting match...', 'info');
-      const response = await fetch(`/api/admin?id=${encodeURIComponent(id)}`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin?id=${encodeURIComponent(id)}`, {
         method: 'DELETE',
         headers: {
           'x-admin-token': token

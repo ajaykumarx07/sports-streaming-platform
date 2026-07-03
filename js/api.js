@@ -3,6 +3,9 @@
  * Handles network requests, caching, timeouts, and fallback parameters.
  */
 
+// Base URL of the backend API. Change this to your deployed backend URL (e.g. 'https://your-backend.vercel.app')
+const API_BASE_URL = ''; 
+
 const API = {
   cache: {
     events: null,
@@ -44,7 +47,7 @@ const API = {
     }
 
     try {
-      const response = await this.fetchWithTimeout('/api/events');
+      const response = await this.fetchWithTimeout(`${API_BASE_URL}/api/events`);
       if (!response.ok) {
         throw new Error(`Failed to retrieve events: Status ${response.status}`);
       }
@@ -71,7 +74,7 @@ const API = {
   async getEventDetail(id) {
     if (!id) throw new Error('Event ID is required');
     try {
-      const response = await this.fetchWithTimeout(`/api/event?id=${encodeURIComponent(id)}`);
+      const response = await this.fetchWithTimeout(`${API_BASE_URL}/api/event?id=${encodeURIComponent(id)}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch event info: Status ${response.status}`);
       }
@@ -90,7 +93,7 @@ const API = {
       throw new Error('Both eventId and channelId parameters are required');
     }
     try {
-      const response = await this.fetchWithTimeout(`/api/stream?eventId=${encodeURIComponent(eventId)}&channelId=${encodeURIComponent(channelId)}`);
+      const response = await this.fetchWithTimeout(`${API_BASE_URL}/api/stream?eventId=${encodeURIComponent(eventId)}&channelId=${encodeURIComponent(channelId)}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch stream details: Status ${response.status}`);
       }
